@@ -1,0 +1,30 @@
+{
+    "auth": {
+        "discord": {
+            "token": ""
+        }
+    },
+    "prefixes": [
+        "!"
+    ],
+    "permissions": {
+        "ping": [
+            "Admin"
+        ],
+        "plug": [
+            "Admin"
+        ],
+        "nowplaying": [
+            "Admin"
+        ],
+        "volume": [
+            "Admin"
+        ],
+        "clean": [
+            "Admin"
+        ]
+    },
+    "volume": 15,
+    "nowPlayingMessages": true,
+    "nowPlayingChannel": ""
+}
