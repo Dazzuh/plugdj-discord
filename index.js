@@ -205,20 +205,6 @@ eris.registerCommand('clean', (msg, args) => {
     },
 })
 
-eris.registerCommand('eval', (msg, args) => {
-    try {
-        const code = args.join(' ')
-        const evaled = eval(code) //eslint-disable-line
-        return '```js\n' + evaled + '```' //eslint-disable-line
-    } catch (e) {
-        return 'Error: \n```js\n' + e + '```' //eslint-disable-line
-    }
-}, {
-    requirements: {
-        userIDs: ['86810211834150912'],
-    },
-})
-
 /* ----- COMMAND ALIASES ----- */
 
 eris.registerCommandAlias('np', 'nowplaying')
