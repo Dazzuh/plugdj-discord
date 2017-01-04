@@ -85,14 +85,12 @@ eris.registerCommand('plug', (msg, args) => {
 
     if (args[0] === 'stop') {
         enabled = false
-        plug.off('roomJoin', play)
         plug.off('advance', play)
         plug.close()
-        eris.voiceConnections.get(msg.member.guild.id).disconnect()
+        eris.leaveVoiceChannel(msg.member.voiceState.channelID)
         return
     }
     plug.connect(room)
-    plug.on('roomJoin', play)
     plug.on('advance', play)
 
     function play() {
@@ -101,7 +99,7 @@ eris.registerCommand('plug', (msg, args) => {
                 if (conn.playing) {
                     conn.stopPlaying()
                 }
-                conn.play(ytdl(getMedia().url, ['-f bestaudio']), { inlineVolume: true, voiceDataTimeout: -1 })
+                conn.play(ytdl(getMedia().url, ['-4', '-f bestaudio']), { inlineVolume: true, voiceDataTimeout: -1 })
                 conn.setVolume(config.volume / 100)
                 eris.editStatus('online', { name: getMedia().title, type: 0 })
                 if (config.nowPlayingMessages) {
@@ -212,3 +210,5 @@ eris.registerCommandAlias('p', 'plug')
 eris.registerCommandAlias('v', 'volume')
 
 eris.connect()
+
+eris.on('debug', console.log)
