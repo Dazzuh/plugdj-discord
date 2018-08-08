@@ -1,10 +1,10 @@
 const Eris    = require('eris')
 const config  = require('./config')
-const  ytdl    = require('youtube-dl')
+const ytdl    = require('youtube-dl')
 const chalk = require('chalk')
 const PlugAPI = require('plugapi')
 const fs      = require('fs')
-
+var lastestKnowChannel;
 const plug = new PlugAPI({ guest: true })
 const eris = new Eris.CommandClient(config.auth.discord.token, {}, {
     description: 'Plug.dj to discord music bot!',
@@ -79,16 +79,18 @@ eris.registerCommand('ping', 'Pong!', {
 eris.registerCommand('plug', (msg, args) => {
     if (!msg.member.voiceState.channelID) {
         msg.channel.createMessage(embed('warn', `${msg.member.mention} You are not in a voice channel.`))
+        return
     }
+    if(!)
     let enabled = true
     const room = args.join(' ')
-
+    lastestKnowChannel = msg.member.voiceState.channelID
 
     if (args[0] === 'stop') {
         enabled = false
         plug.off('advance', play)
         plug.close()
-        eris.leaveVoiceChannel(msg.member.voiceState.channelID)
+        eris.leaveVoiceChannel(lastestKnowChannel)
         return
     }
     plug.connect(room)
@@ -96,7 +98,7 @@ eris.registerCommand('plug', (msg, args) => {
 
     function play() {
         if (enabled === true) {
-            eris.joinVoiceChannel(msg.member.voiceState.channelID).then((conn) => {
+            eris.joinVoiceChannel(lastestKnowChannel).then((conn) => {
                 if (conn.playing) {
                     conn.stopPlaying()
                 }
