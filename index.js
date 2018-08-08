@@ -81,7 +81,6 @@ eris.registerCommand('plug', (msg, args) => {
         msg.channel.createMessage(embed('warn', `${msg.member.mention} You are not in a voice channel.`))
         return
     }
-    if(!)
     let enabled = true
     const room = args.join(' ')
     lastestKnowChannel = msg.member.voiceState.channelID
