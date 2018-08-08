@@ -1,6 +1,7 @@
 # plugdj-discord
 Bot to play music from a plug.dj room to discord 
 
+![console](https://i.imgur.com/bzfOJfH.png)
 ## How to install
 
 * Clone this repository : `git clone https://github.com/Dazzuh/plugdj-discord ` 
