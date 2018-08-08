@@ -1,0 +1,33 @@
+{
+    "auth": {
+        "discord": {
+            "token": "DISCORD_TOKEN"
+        }
+    },
+    "prefixes": [
+        "pl!"
+    ],
+    "permissions": {
+        "ping": [
+            "Admin"
+        ],
+        "plug": [
+            "Admin"
+        ],
+        "nowplaying": [
+            "Admin"
+        ],
+        "volume": [
+            "Admin"
+        ],
+        "clean": [
+            "Admin"
+        ]
+    },
+    "volume": 34,
+    "ffmpegPath": "ffmpeg",
+    "forceLibOpus": true,
+    "nowPlayingMessages": false,
+    "debug": false,
+    "nowPlayingChannel": ""
+}
