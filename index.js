@@ -1,6 +1,7 @@
 const Eris    = require('eris')
 const config  = require('./config')
-const ytdl    = require('youtube-dl')
+const  ytdl    = require('youtube-dl')
+const chalk = require('chalk')
 const PlugAPI = require('plugapi')
 const fs      = require('fs')
 
@@ -99,7 +100,23 @@ eris.registerCommand('plug', (msg, args) => {
                 if (conn.playing) {
                     conn.stopPlaying()
                 }
-                conn.play(ytdl(getMedia().url, ['-4', '-f bestaudio']), { inlineVolume: true, voiceDataTimeout: -1 })
+                //force libopus
+                conn.converterCommand = config.ffmpegPath
+                conn.libopus = config.forceLibOpus
+                
+                //Output to stdout "-o -" : required to pipe to ffmpeg
+                // using format webm for youtube and hls_opus_64_url for soundcloud (in case there is a soundcloud music playing)
+                // -4 : allowing only ipv4
+                var video = ytdl(getMedia().url, ['-o -', '-4', '-f webm/hls_opus_64_url'])
+                video.on('info', function(info) {
+                    console.log(chalk.green('----Info: Download started----'));
+                    console.log(chalk.blue('name:' + getMedia().title))
+                    //console.log(chalk.blue('filename: ' + info._filename));
+                    console.log(chalk.blue('size: ' + info.size));
+                    conn.play(video, {voiceDataTimeout: -1, inlineVolume: true})
+                });
+                video.on('end', () => console.log("Stream ended"));
+                video.on('error', err => console.log(err))
                 conn.setVolume(config.volume / 100)
                 eris.editStatus('online', { name: getMedia().title, type: 0 })
                 if (config.nowPlayingMessages) {
@@ -211,4 +228,4 @@ eris.registerCommandAlias('v', 'volume')
 
 eris.connect()
 
-eris.on('debug', console.log)
+if (config.debug) eris.on('debug', console.log)

@@ -1,11 +1,11 @@
 {
     "auth": {
         "discord": {
-            "token": ""
+            "token": "DISCORD_TOKEN"
         }
     },
     "prefixes": [
-        "!"
+        "pl!"
     ],
     "permissions": {
         "ping": [
@@ -24,7 +24,10 @@
             "Admin"
         ]
     },
-    "volume": 15,
-    "nowPlayingMessages": true,
+    "volume": 34,
+    "ffmpegPath": "ffmpeg",
+    "forceLibOpus": true,
+    "nowPlayingMessages": false,
+    "debug": false,
     "nowPlayingChannel": ""
 }

@@ -1,17 +1,19 @@
 {
   "name": "discord.dj",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Play music from plug.dj via discord",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "Dazzuh",
   "license": "ISC",
   "dependencies": {
-    "eris": "github:abalabahaha/eris#dev",
+    "chalk": "^2.4.1",
+    "eris": "^0.8.6",
     "node-opus": "^0.2.2",
     "plugapi": "github:plugcubed/plugapi",
-    "youtube-dl": "^1.11.1"
+    "youtube-dl": "^1.12.2"
   }
 }
