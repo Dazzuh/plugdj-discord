@@ -1,6 +1,6 @@
 {
-  "name": "discord.dj",
-  "version": "1.0.1",
+  "name": "plugdj-discord",
+  "version": "1.0.2",
   "description": "Play music from plug.dj via discord",
   "main": "index.js",
   "scripts": {

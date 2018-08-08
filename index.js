@@ -14,9 +14,9 @@ const eris = new Eris.CommandClient(config.auth.discord.token, {}, {
         'deleteCommand': true,
     },
 })
-
 eris.on('ready', () => {
     console.log('Connected to discord!')
+    console.log('Plug.dj bot ' + chalk.green('v1.0.2') + ' - Originally authored by Dazzuh. Edited by mxb.')
     eris.editStatus('idle', null)
 })
 
@@ -104,22 +104,19 @@ eris.registerCommand('plug', (msg, args) => {
                 //force libopus
                 conn.converterCommand = config.ffmpegPath
                 conn.libopus = config.forceLibOpus
-                
-                //Output to stdout "-o -" : required to pipe to ffmpeg
+                conn.on("error", err => console.log(err))
+                conn.on("stop", () => console.log('Stream ended'))
                 // using format webm for youtube and hls_opus_64_url for soundcloud (in case there is a soundcloud music playing)
                 // -4 : allowing only ipv4
-                var video = ytdl(getMedia().url, ['-o -', '-4', '-f webm/hls_opus_64_url'])
-                video.on('info', function(info) {
-                    console.log(chalk.green('----Info: Download started----'));
-                    console.log(chalk.blue('name:' + getMedia().title))
-                    //console.log(chalk.blue('filename: ' + info._filename));
-                    console.log(chalk.blue('size: ' + info.size));
-                    conn.play(video, {voiceDataTimeout: -1, inlineVolume: true})
-                });
-                video.on('end', () => console.log("Stream ended"));
-                video.on('error', err => console.log(err))
+                ytdl.getInfo(getMedia().url, ['-4', '-f webm/hls_opus_64_url'], {}, function getInfo(err, data) {
+                    if (err) return console.log(err)
+                    var item = (!data.length) ? data : data.shift()
+                    console.log(chalk.green('----Info: Download started----'))
+                    console.log(chalk.blue('name: ' + getMedia().title))
+                    conn.play(item.url, {voiceDataTimeout: -1, inlineVolume: true, inputArgs : ['-ss', `${getMedia().elapsed}`], })
+                })
                 conn.setVolume(config.volume / 100)
-                eris.editStatus('online', { name: getMedia().title, type: 0 })
+                eris.editStatus('online', { name:  room + ': ' + getMedia().title, type: 0 })
                 if (config.nowPlayingMessages) {
                     let channel
                     if (config.nowPlayingChannel) channel = config.nowPlayingChannel
@@ -228,5 +225,10 @@ eris.registerCommandAlias('p', 'plug')
 eris.registerCommandAlias('v', 'volume')
 
 eris.connect()
-
+function endBot () {
+    eris.disconnect({reconnect: false})
+}
+process.on('exit', endBot)
+process.on('SIGINT', endBot)
 if (config.debug) eris.on('debug', console.log)
+
