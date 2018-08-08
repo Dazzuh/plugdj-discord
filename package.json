@@ -13,7 +13,7 @@
     "chalk": "^2.4.1",
     "eris": "^0.8.6",
     "node-opus": "^0.2.2",
-    "plugapi": "github:plugcubed/plugapi",
+    "plugapi": "^5.1.0",
     "youtube-dl": "^1.12.2"
   }
 }
