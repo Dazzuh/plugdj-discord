@@ -227,6 +227,7 @@ eris.registerCommandAlias('v', 'volume')
 eris.connect()
 function endBot () {
     eris.disconnect({reconnect: false})
+    process.exit()
 }
 process.on('exit', endBot)
 process.on('SIGINT', endBot)
