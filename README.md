@@ -18,4 +18,4 @@ Bot to play music from a plug.dj room to discord
 ### Depencies installation known issues
 
 * Node-opus installation : node-gyp is required to install
-* youtube-dl installation: Spawn error exception: It seems that youtube-dl download a wrong version of the binary youtube-dl.exe on windows. Download a good version of the binary [here](https://rg3.github.io/youtube-dl/download.html) and put it in `node_modules/youtube-dl/bin`
+* youtube-dl installation: Spawn error exception: It seems that youtube-dl download a wrong architecture (like 32bits instead of 64bits) of the binary youtube-dl.exe on windows. Download a good version of the binary [here](https://rg3.github.io/youtube-dl/download.html) and put it in `node_modules/youtube-dl/bin`
